@@ -1,0 +1,92 @@
+{
+  "version": 5,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 23,
+    "patch": 0
+  },
+  "include": [
+  ],
+  "configurePresets": [
+    {
+      "name": "default_local_debug_with_llvm",
+      "inherits": [
+        "Flang Default Configure"
+      ],
+      "binaryDir": "${sourceDir}/../build_debug",
+      "displayName": "local Default debug Config with llvm",
+      "description": "local Default debug build using Ninja generator",
+      "environment": {
+        "PATH": "/auto/software/swtree/ubuntu20.04/x86_64/llvm/14.0.0/bin:$penv{PATH}",
+        "LD_LIBRARY_PATH": "/auto/software/swtree/ubuntu20.04/x86_64/llvm/14.0.0/lib:$penv{LD_LIBRARY_PATH}"
+      }, 
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "LLVM_ENABLE_LLD": "ON",
+        "NDEBUG": "OFF"
+      }
+    },
+    {
+      "name": "default_local_debug_with_gcc",
+      "inherits": [
+        "Flang Default Configure"
+      ],
+      "binaryDir": "${sourceDir}/../build_debug_gcc",
+      "displayName": "local Default debug Config with gcc",
+      "description": "local Default debug build using Ninja generator",
+      "environment": {
+        "PATH": "/auto/software/swtree/ubuntu20.04/x86_64/gcc/12.1.0/bin:$penv{PATH}",
+        "LD_LIBRARY_PATH": "/auto/software/swtree/ubuntu20.04/x86_64/gcc/12.1.0/lib64:$penv{LD_LIBRARY_PATH}"
+      }, 
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_BUILD_TYPE": "Debug",
+        "NDEBUG": "OFF"
+      }
+    },
+    {
+      "name": "default_local_relwithdebuginfo_with_gcc",
+      "inherits": [
+        "Flang Default Configure"
+      ],
+      "binaryDir": "${sourceDir}/../build_relwithdebuginfo_gcc",
+      "displayName": "local Default relwithdebuginfo Config with gcc",
+      "description": "local Default relwithdebuginfo build using Ninja generator",
+      "environment": {
+      }, 
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build_from_user_presets_llvm",
+      "configurePreset": "default_local_debug_with_llvm",
+      "displayName": "Build from user presetssss llvm",
+      "description": "local Default build using Ninja generator",
+      "jobs": 32
+    },
+    {
+      "name": "build_from_user_presets_gcc",
+      "configurePreset": "default_local_debug_with_gcc",
+      "displayName": "Build from user presets gcc",
+      "description": "local Default build using Ninja generator",
+      "jobs": 128 
+    },
+    {
+      "name": "build_from_user_presets_gcc_relwithdebuginfo",
+      "configurePreset": "default_local_relwithdebuginfo_with_gcc",
+      "displayName": "Build from user presets gcc relwithdebuginfo",
+      "description": "local Default build using Ninja generator",
+      "jobs": 128 
+    }
+  ],
+  "testPresets": [
+  ]
+}

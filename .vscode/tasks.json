@@ -1,0 +1,76 @@
+{
+"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "build_and_run",
+			"command": "#bash build_and_run.sh"	
+		},
+		{
+			"type": "shell",
+			"label": "Anthony's Semantic Check with test_errors.py",
+			"command": "module load gcc/12.1.0 && python /noback/93u/Research/secretariat/llvm-project/flang/test/Semantics/test_errors.py /noback/93u/Research/secretariat/llvm-project/flang/test/Semantics/call30.f90 /noback/93u/Research/secretariat/llvm-project/build_debug_gcc/bin/flang-new -fc1 -Werror -debug",
+			"dependsOn": [
+			],
+			"dependsOrder": "sequence"
+		},
+		{
+			"type": "shell",
+			"label": "load LLVM 14.0.0",
+			"command": "module load llvm/14.0.0"	
+		},
+		{
+			"type": "shell",
+			"label": "Add llvm build_debug/bin binary dir to path",
+			"command": "export PATH=/noback/93u/Research/secretariat/llvm-project/build_debug/bin:${PATH}"
+		},
+		{
+			"label": "Run Before debugging build_debug",
+			"dependsOn": [
+				"load LLVM 14.0.0",
+				"Add llvm build_debug/bin binary dir to path"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "load GCC 12.1.0",
+			"command": "module load gcc/12.1.0"	
+		},
+		{
+			"type": "shell",
+			"label": "Compile volatile example with -flang-experiental-exec, build_debug_gcc",
+			"command": "/noback/93u/Research/secretariat/llvm-project/build_debug_gcc/bin/flang-new -flang-experimental-exec /noback/93u/Sandbox/issue_58973_volatile_dummy_arg/snem0601_012_.f90 -v",
+			"dependsOn": [
+				"load GCC 12.1.0"
+			]
+		},
+		{
+			"type": "shell",
+			"label": "Compile volatile example with -fc1, build_debug_gcc",
+			"command": "module load gcc/12.1.0 && /noback/93u/Research/secretariat/llvm-project/build_debug_gcc/bin/flang-new -fc1 /noback/93u/Sandbox/issue_58973_volatile_dummy_arg/snem0601_012_.f90",
+			"dependsOn": [
+				"load GCC 12.1.0",
+				"echo $LD_LIBRARY_PATH"
+			],
+			"dependsOrder": "sequence"
+		},
+		{
+			"type": "shell",
+			"label": "Compile volatile example with -fc1, build_fujitsu",
+			"command": "module load gcc/12.1.0 && /noback/93u/Research/secretariat/llvm-project/build_fujitsu/bin/flang-new -fc1 /noback/93u/Sandbox/issue_58973_volatile_dummy_arg/snem0601_012_.f90",
+			"dependsOn": [
+				"load GCC 12.1.0"
+			],
+			"dependsOrder": "sequence"
+		},
+		{
+			"type": "shell",
+			"label": "Anthony's Semantic Check",
+			"command": "module load gcc/12.1.0 && /noback/93u/Research/secretariat/llvm-project/build_debug_gcc/bin/flang-new -fc1 /noback/93u/Research/secretariat/llvm-project/flang/test/Semantics/call30.f90",
+			"dependsOn": [
+				"load GCC 12.1.0"
+			],
+			"dependsOrder": "sequence"
+		}
+	]
+}

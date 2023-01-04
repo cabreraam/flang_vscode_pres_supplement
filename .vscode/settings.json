@@ -1,0 +1,12 @@
+{
+  "files.associations": {
+    "*.inc": "cpp",
+    "*.tcc": "cpp",
+    "string": "cpp",
+    "regex": "cpp"
+  },
+  "cmake.sourceDirectory": "${workspaceFolder}/llvm",
+  "cmake.parallelJobs": 16,
+  "git.ignoreLimitWarning": true,
+  "clang-format.executable": "/auto/software/swtree/ubuntu20.04/x86_64/llvm/14.0.0/bin/clang-format"
+}

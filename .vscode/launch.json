@@ -1,0 +1,99 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "(lldb) Debug VOLATILE Keyword",
+      "program": "${workspaceFolder}/build_debug/bin/flang-new",
+      "args": [
+        "-flang-experimental-exec",
+        "/noback/93u/Sandbox/issue_58973_volatile_dummy_arg/snem0601_012_.f90",
+        "-v"
+      ],
+      "preLaunchTask": "Run Before debugging build_debug",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "(gdb) Debug VOLATILE Keyword",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build_debug_gcc/bin/flang-new",
+      "args": [
+        "-flang-experimental-exec",
+        "/noback/93u/Sandbox/issue_58973_volatile_dummy_arg/snem0601_012_.f90",
+        "-v"
+      ],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        {
+          "name": "LD_LIBRARY_PATH",
+          "value": "${env:LD_LIBRARY_PATH}:/auto/software/swtree/ubuntu20.04/x86_64/gcc/12.1.0/lib64"
+        }
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/noback/93u/spack/opt/spack/linux-ubuntu20.04-zen2/gcc-12.1.0/gdb-12.1-6ajvwcxw666sgncms2zimnnomn7cwmsw/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set follow-fork-mode child",
+          "text": "-gdb-set follow-fork-mode child",
+          "ignoreFailures": true
+        }
+      ],
+      "logging": {"engineLogging": true}
+    },
+    {
+      "name": "(gdb) Semantic Check for VOLATILE Keyword",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build_debug_gcc/bin/flang-new",
+      "args": [
+        "-fc1",
+        "/noback/93u/Sandbox/issue_58973_volatile_dummy_arg/snem0601_012_.f90"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        {
+          "name": "LD_LIBRARY_PATH",
+          "value": "${env:LD_LIBRARY_PATH}:/auto/software/swtree/ubuntu20.04/x86_64/gcc/12.1.0/lib64"
+        }
+      ],
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "miDebuggerPath": "/noback/93u/spack/opt/spack/linux-ubuntu20.04-zen2/gcc-12.1.0/gdb-12.1-6ajvwcxw666sgncms2zimnnomn7cwmsw/bin/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set follow-fork-mode child",
+          "text": "-gdb-set follow-fork-mode child",
+          "ignoreFailures": true
+        }
+      ],
+      "logging": {"engineLogging": false}
+    }
+  ]
+}
